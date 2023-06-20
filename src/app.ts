@@ -25,7 +25,7 @@ app.use((req: any, res: any, next) => {
 })
 
 // importação de rotas
-import userRoutes from "./routes/seller.routes";
+import userRoutes from "./routes/user.routes";
 import bodyParser from "body-parser";
 
 app.use(bodyParser.urlencoded({ extended: false }))
