@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { prisma } from "../services/prisma.service";
 
 export interface IFormData {
   cnpj?: string;
@@ -55,10 +56,22 @@ class UserValidator {
             return true;
           }
         )
-        .test("is-cpf-valid", "invalid cpf format", function (value) {
+        .test("is-cpf-valid", "invalid cpf format", async function (value) {
           if (!value) {
             return true;
           }
+
+          const existingUser = await prisma.user.findFirst({
+            where: {
+              cpf: value,
+            },
+          });
+          if (existingUser) {
+            return this.createError({
+              message: "CPF already in use",
+            });
+          }
+
           const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
           return cpfRegex.test(value);
         }),
@@ -78,10 +91,22 @@ class UserValidator {
             return true;
           }
         )
-        .test("is-cnpj-valid", "invalid cnpj format", function (value) {
+        .test("is-cnpj-valid", "invalid cnpj format", async function (value) {
           if (!value) {
             return true;
           }
+
+          const existingUser = await prisma.user.findFirst({
+            where: {
+              cnpj: value
+            },
+          });
+          if (existingUser) {
+            return this.createError({
+              message: "CNPJ already in use",
+            });
+          }
+
           const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
           return cnpjRegex.test(value);
         }),
@@ -109,10 +134,22 @@ class UserValidator {
         .test(
           "is-cpf-responsible-valid",
           "invalid preson responsible cpf format",
-          function (value) {
+          async function (value) {
             if (!value) {
               return true;
             }
+
+            const existingUser = await prisma.user.findFirst({
+              where: {
+                responsiblePersonCpf: value
+              },
+            });
+            if (existingUser) {
+              return this.createError({
+                message: "CPF already in use",
+              });
+            }
+
             const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
             return cpfRegex.test(value);
           }
@@ -168,7 +205,6 @@ class UserValidator {
         const errors = error.errors;
         throw errors;
       } else {
-        console.log(error);
         throw "Unknown error occurred";
       }
     }
