@@ -6,7 +6,7 @@ class Adress {
       data: {
         city: data.city,
         complement: data.complement ?? null,
-        houseNumber: data.houseNumber,
+        houseNumber: parseInt(data.houseNumber),
         postalCode: data.postalCode,
         state: data.state,
         street: data.street,
