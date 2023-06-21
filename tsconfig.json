@@ -3,7 +3,16 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@routes/*": ["src/routes/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@repositories/*": ["src/respositories/*"],
+      "@services/*": ["src/services/*"],
+      "@validators/*": ["src/validators/*"],
+    }
   },
   "include": [
     "src/**/*.ts"
