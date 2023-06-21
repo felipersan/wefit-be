@@ -1,15 +1,23 @@
 import { prisma } from "../services/prisma.service";
+import { IFormData } from "../validators/user.validator";
 
-class Lead {
-  async create(data: any) {
-    const newUser = prisma.user.create({data})
-    return newUser
-  }
+class User {
+  async create(data) {
 
-  async findAll() {
-    const listLead = await prisma.user.findMany();
-    return listLead;
+    const newUser = await prisma.user.create({
+      data: {
+        responsiblePersonCpf: data?.responsiblePersonCpf ?? null,
+        phone: data?.phone,
+        cellPhone: data.cellPhone,
+        email: data?.email,
+        name: data?.name,
+        cnpj: data?.cnpj ?? null,
+        cpf: data?.cpf ?? null,
+        }
+    });
+
+   return newUser
   }
 }
 
-export default new Lead();
+export default new User();

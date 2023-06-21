@@ -14,8 +14,9 @@ model User {
     responsiblePersonCpf String?
     name                 String
     cellPhone            String
-    landingPhone         String
+    phone                String
     email                String
+    terms                Boolean @default(true)
 
     adress Adress?
 }

@@ -6,24 +6,21 @@ require("dotenv").config();
 
 class UserController {
   async create(req: Request, res: Response): Promise<any> {
-    const formData = req.body
+    const formData = req.body;
 
     try {
-      
-      await userValidator.validateForm(formData)
+      await userValidator.validateForm(formData);
 
-      await userService.registryUser(formData)
+      await userService.registryUser(formData);
 
-      return res.status(200).json({message: 'rota funcionando'})
-
+      return res.status(200).json({ message: "user created successfully" });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({
-        error: error
-      })
+        error: error,
+      });
     }
-
-
-  }  
+  }
 }
 
 export default new UserController();

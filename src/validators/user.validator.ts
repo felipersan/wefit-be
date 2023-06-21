@@ -6,7 +6,7 @@ export interface IFormData {
   responsiblePersonCpf?: string;
   name: string;
   cellPhone: string;
-  landingPhone: string;
+  phone: string;
   email: string;
   postalCode: string;
   street: string;
@@ -18,7 +18,7 @@ export interface IFormData {
 
 class UserValidator {
   private cellPhoneRegex: RegExp;
-  private landingPhoneRegex: RegExp;
+  private phoneRegex: RegExp;
   private emailRegex: RegExp;
   private postalCodeRegex: RegExp;
 
@@ -26,7 +26,7 @@ class UserValidator {
 
   constructor() {
     this.cellPhoneRegex = /^\([1-9]{2}\) (?:9\d|[2-9])\d{3}\-\d{4}$/;
-    this.landingPhoneRegex = /^\([1-9]{2}\) [2-9]\d{3}\-\d{4}$/;
+    this.phoneRegex = /^\([1-9]{2}\) [2-9]\d{3}\-\d{4}$/;
     this.emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     this.postalCodeRegex = /^\d{5}-\d{3}$/;
 
@@ -123,10 +123,10 @@ class UserValidator {
         .required("cellPhone must be required")
         .matches(this.cellPhoneRegex, "Invalid cellPhone format"),
 
-      landingPhone: yup
+      phone: yup
         .string()
-        .required("landing phone must be required")
-        .matches(this.landingPhoneRegex, "Invalid landing phone format"),
+        .required("phone must be required")
+        .matches(this.phoneRegex, "Invalid landing phone format"),
 
       email: yup
         .string()
