@@ -2,8 +2,8 @@ import { prisma } from "../services/prisma.service";
 
 class Lead {
   async create(data: any) {
-    const newLead = prisma.user.create({data})
-    return newLead
+    const newUser = prisma.user.create({data})
+    return newUser
   }
 
   async findAll() {

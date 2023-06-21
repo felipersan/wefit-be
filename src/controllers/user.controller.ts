@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import userValidator from "../validators/user.validator";
+import userService from "../services/user.service";
 
 require("dotenv").config();
 
@@ -10,6 +11,9 @@ class UserController {
     try {
       
       await userValidator.validateForm(formData)
+
+      await userService.registryUser(formData)
+
       return res.status(200).json({message: 'rota funcionando'})
 
     } catch (error) {
